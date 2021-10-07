@@ -12,7 +12,7 @@ class MediaManager {
     {
     	if (mt.model.musicOn==true)
     	{
-    		this.background=this.scene.sound.add(key,{volume:.5,loop:true});
+    		this.background=this.scene.sound.add(key,{volume:.2,loop:true});
     		this.background.play();
     	}
     }

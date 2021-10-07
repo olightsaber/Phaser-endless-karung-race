@@ -185,9 +185,9 @@ class SceneMain extends Phaser.Scene {
 
     resetObsPos(obs) {
       obs.x = (this.neko.x + game.config.width/2);
-      const randomY = Phaser.Math.Between(this.player.y + (obs.displayHeight*2.3), this.player.y + obs.displayHeight*2.5);
+      let randomY = Phaser.Math.Between(this.neko.y + this.neko.y/1.2, this.neko.y + this.neko.y/1.5);
       obs.y = randomY;
-      console.log(obs);
+      
     }
 
     // Helpers
