@@ -90,6 +90,8 @@ class SceneMain extends Phaser.Scene {
         this.obstacles.children.iterate((child) => {
           this.obs.setUp(child);
         })
+
+        // var rndSprite = this.obstacles.getRandomExists();
     } 
     update(){
       var body = this.player.body;
@@ -119,15 +121,15 @@ class SceneMain extends Phaser.Scene {
           this.player.active = false;
         }
 
+        // let arr = [this.kucing, this.bola, this.batu];
+        // arr.map((e) => {
+        //   this.moveObstacle(e, Phaser.Math.Between(1, 3))
+        // })
         if (this.score < 10) {
           this.moveObstacle(this.kucing, 1)
-        } else if(this.score > 9) {
+        } else if(this.score > 9 && this.score < 19) {
           this.moveObstacle(this.bola, 2)
-        } else if(this.score > 19) {
-          this.moveObstacle(this.batu, 3)
         } else {
-          this.moveObstacle(this.kucing, 1)
-          this.moveObstacle(this.bola, 2)
           this.moveObstacle(this.batu, 3)
         }
 
@@ -163,6 +165,8 @@ class SceneMain extends Phaser.Scene {
       this.batu = this.add.sprite(game.config.width, game.config.height, 'kampoeng', 'batu');
       this.obstacles.add(this.batu);
       this.batu.body.setSize(50, 100, 55, 10); 
+
+      console.log(this.obstacles.GetRandom)
     }
 
     destroySprite (sprite) {
