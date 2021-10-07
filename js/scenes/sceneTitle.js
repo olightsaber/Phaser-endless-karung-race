@@ -23,7 +23,7 @@ class SceneTitle extends Phaser.Scene {
             rows: 14,
             cols: 12
         });
-       this.aGrid.showNumbers();       
+        // this.aGrid.showNumbers();       
        
         //////////////////////////////
         // TITLE TEXT ////////////////

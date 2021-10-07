@@ -37,7 +37,7 @@ class SceneLoad extends Phaser.Scene {
         mt.mediaManager = new MediaManager({
             scene: this
         });
-        this.scene.start("SceneTitle");
+        this.scene.start("SceneMain");
     }
     showProgress(prog) {
         var per = Math.floor((prog / 1) * 100);

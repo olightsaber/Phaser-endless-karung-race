@@ -10,7 +10,7 @@ class Obstacles extends Phaser.Scene {
     obs.body.moves = false;
     obs.x = game.config.width ;
     obs.y = game.config.height/2;
-    obs.setScale(.3);
+    obs.setScale(.4);
     obs.setOrigin(.5);
     obs.active = true; 
   }

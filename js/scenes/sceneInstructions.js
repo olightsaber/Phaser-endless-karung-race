@@ -16,7 +16,7 @@ class SceneInstructions extends Phaser.Scene {
             rows: 14,
             cols: 12
         });
-       this.aGrid.showNumbers();
+        // this.aGrid.showNumbers();
 
         this.player = this.physics.add.sprite(0, 0, 'kampoeng', 'char-1.png').setScale(.5);
         this.anims.create({

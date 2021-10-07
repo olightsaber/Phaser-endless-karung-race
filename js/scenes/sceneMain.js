@@ -27,15 +27,16 @@ class SceneMain extends Phaser.Scene {
 
         // NEKO
         this.neko = this.physics.add.sprite(
-            this.physics.world.bounds.centerX,
-            this.physics.world.bounds.centerY,
-            'kampoeng',
-            'bola'
+          this.physics.world.bounds.centerX,
+          this.physics.world.bounds.centerY,
+          'kampoeng',
+          'bola'
         ).setScale(.2);
         
         this.neko.body.allowGravity = false;
         this.neko.body.acceleration.x = 10;
         this.neko.body.velocity.x = 100;
+        this.neko.visible = false;
 
         // set camera to follow player neko as center
         this.cameras.main.startFollow(this.neko);
@@ -46,7 +47,7 @@ class SceneMain extends Phaser.Scene {
           this.neko.y , 
           'kampoeng', 
           'char-1.png'
-        ).setScale(.2);
+        ).setScale(.35);
         this.anims.create({
           key: 'walk',
           frames: this.anims.generateFrameNames('kampoeng', {
@@ -90,7 +91,21 @@ class SceneMain extends Phaser.Scene {
           this.player.body.velocity.x = this.neko.body.velocity.x;
         }
         if (body.blocked.down || body.touching.down) {
-          this.player.anims.msPerFrame = body.velocity.x;
+          let pace = Math.floor(body.velocity.x);
+          if (pace < 300) {
+            pace = 110;
+          } else if( pace > 300 && pace < 550) {
+            pace = 95;
+          } else if( pace > 550 && pace < 700) {
+            pace = 80
+          } else if( pace > 700 && pace < 850) {
+            pace = 65
+          } else if( pace > 850 && pace < 1000) {
+            pace = 45;
+          } else {
+            pace = 25;
+          }
+          this.player.anims.msPerFrame = pace;
           if (this.jumpButton.isDown || this.input.activePointer.isDown) {
             mt.mediaManager.playSound('jump');
             body.velocity.y = -body.maxVelocity.y;
@@ -107,16 +122,15 @@ class SceneMain extends Phaser.Scene {
         if (this.player.x < (this.neko.x - game.config.width/2)) {
           mt.mediaManager.playSound('over');
           this.player.active = false;
-          // this.player.active = false;
         }
 
         
-        if (this.score < 10) {
+        if (this.score % 2 == 0) {
           this.moveObstacle(this.kucing, 1)
-        } else if(this.score > 9 && this.score < 19) {
+        } else if(this.score % 2 == 1) {
           this.moveObstacle(this.bola, 2)
         } else {
-          this.moveObstacle(this.batu, 3  )
+          this.moveObstacle(this.batu, 3)
         }
 
         this.bg.tilePositionX = this.cameras.main.scrollX / 2;
@@ -145,7 +159,7 @@ class SceneMain extends Phaser.Scene {
       this.bola = this.add.sprite(game.config.width, game.config.height, 'kampoeng', 'bola');
       this.obstacles.add(this.bola);
       this.bola.body.setSize(50, 100, 55, 10);
-      this.bola.setScale(.3);  
+      this.bola.setScale(.4);
       this.bola.name = 'bola';
     }
 
@@ -186,7 +200,7 @@ class SceneMain extends Phaser.Scene {
         obs.body.setGravity(0, 1000);
         obs.body.moves = true;
         obs.body.immovable = true;
-        obs.y = this.neko.y;
+        obs.y = Phaser.Math.Between(this.neko.y, this.neko.y+this.player.height);
         this.tweens.add({
           targets: obs,
           duration: 5000,
@@ -203,11 +217,9 @@ class SceneMain extends Phaser.Scene {
     }
 
     startOver () {
-      // this.timer.paused = true;
       this.cameras.main.fadeOut(3000);
       this.addEvent(2000, this.restart, 'restart');
       this.player.state = 'alive';
-      // this.scene.start("SceneOver");
     }
 
     restart(){

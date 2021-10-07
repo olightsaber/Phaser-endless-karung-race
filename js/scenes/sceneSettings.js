@@ -4,11 +4,10 @@ class SceneSettings extends Phaser.Scene {
     }
     preload() {}
     create() {
-        console.log("SceneSettings!");
-        this.back = this.add.image(0, 0, "titleBack");
-        this.back.setOrigin(0, 0);
-        this.back.displayWidth = game.config.width;
-        this.back.displayHeight = game.config.height;
+        // console.log("SceneSettings!");
+        this.bg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'kampoeng', 'background.png').setOrigin(0,0);
+        this.bg.tilePositionX = 120;
+        this.bg.tilePositionY = 450;
         this.aGrid = new AlignGrid({
             scene: this,
             rows: 11,
