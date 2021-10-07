@@ -1,0 +1,251 @@
+{
+	"textures": [
+		{
+			"image": "kampoeng.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 3890,
+				"h": 1300
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "background.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 2881,
+						"h": 1281
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 2881,
+						"h": 1281
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 2881,
+						"h": 1281
+					}
+				},
+				{
+					"filename": "finish.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 301,
+						"h": 1921
+					},
+					"spriteSourceSize": {
+						"x": 33,
+						"y": 1126,
+						"w": 237,
+						"h": 767
+					},
+					"frame": {
+						"x": 2884,
+						"y": 1,
+						"w": 237,
+						"h": 767
+					}
+				},
+				{
+					"filename": "character.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 856,
+						"h": 601
+					},
+					"spriteSourceSize": {
+						"x": 35,
+						"y": 57,
+						"w": 787,
+						"h": 529
+					},
+					"frame": {
+						"x": 2884,
+						"y": 770,
+						"w": 787,
+						"h": 529
+					}
+				},
+				{
+					"filename": "obstacle.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 781,
+						"h": 106
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 4,
+						"w": 766,
+						"h": 97
+					},
+					"frame": {
+						"x": 3123,
+						"y": 1,
+						"w": 766,
+						"h": 97
+					}
+				},
+				{
+					"filename": "char-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 277,
+						"h": 590
+					},
+					"spriteSourceSize": {
+						"x": 35,
+						"y": 59,
+						"w": 217,
+						"h": 527
+					},
+					"frame": {
+						"x": 3123,
+						"y": 100,
+						"w": 217,
+						"h": 527
+					}
+				},
+				{
+					"filename": "char-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 277,
+						"h": 590
+					},
+					"spriteSourceSize": {
+						"x": 51,
+						"y": 59,
+						"w": 217,
+						"h": 527
+					},
+					"frame": {
+						"x": 3123,
+						"y": 100,
+						"w": 217,
+						"h": 527
+					}
+				},
+				{
+					"filename": "char-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 277,
+						"h": 590
+					},
+					"spriteSourceSize": {
+						"x": 46,
+						"y": 57,
+						"w": 211,
+						"h": 485
+					},
+					"frame": {
+						"x": 3342,
+						"y": 100,
+						"w": 211,
+						"h": 485
+					}
+				},
+				{
+					"filename": "kucing",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 196,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 8,
+						"w": 181,
+						"h": 92
+					},
+					"frame": {
+						"x": 3342,
+						"y": 587,
+						"w": 181,
+						"h": 92
+					}
+				},
+				{
+					"filename": "batu",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 196,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 12,
+						"w": 180,
+						"h": 88
+					},
+					"frame": {
+						"x": 3123,
+						"y": 629,
+						"w": 180,
+						"h": 88
+					}
+				},
+				{
+					"filename": "bola",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 196,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 49,
+						"y": 4,
+						"w": 94,
+						"h": 96
+					},
+					"frame": {
+						"x": 3525,
+						"y": 587,
+						"w": 94,
+						"h": 96
+					}
+				},
+				{
+					"filename": "powerbar.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 50,
+						"h": 5
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 50,
+						"h": 5
+					},
+					"frame": {
+						"x": 3305,
+						"y": 681,
+						"w": 50,
+						"h": 5
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:c2c56a04cf84ca30ba0197bd903676c2:2cd11c5aa8483aa6791e3a3de4578294:bb97aaf578b3aa9b8685372a16a4ebda$"
+	}
+}
