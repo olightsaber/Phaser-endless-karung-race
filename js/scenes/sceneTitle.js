@@ -6,63 +6,83 @@ class SceneTitle extends Phaser.Scene {
         
     }
     create() {
-       
-        this.back = this.add.image(0, 0, "titleBack");
-        this.back.setOrigin(0, 0);
-        this.back.displayWidth = game.config.width;
-        this.back.displayHeight = game.config.height;
+        // init music
+        mt.mediaManager.setBackground('bg_song');
+        
+        // background
+        this.bg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'kampoeng', 'background.png').setOrigin(0,0);
+        this.bg.tilePositionX = 120;
+        this.bg.tilePositionY = 450;
+
+        this.bottom = this.add.sprite(0, game.config.height - 20, "grass");
+        this.bottom.setOrigin(0, 0);
+        this.bottom.displayWidth = game.config.width;
+        
         this.aGrid = new AlignGrid({
             scene: this,
-            rows: 11,
-            cols: 11
+            rows: 14,
+            cols: 12
         });
-      //  this.aGrid.showNumbers();
+       this.aGrid.showNumbers();       
        
-        //
-        //
-        //
+        //////////////////////////////
+        // TITLE TEXT ////////////////
         this.titleText = this.add.text(0, 0, mt.model.gameTitle, {
             fontSize: game.config.width / 10,
-            color: "#ff0000"
+            fill: "#fff"
         });
-        //
-        //
+        this.aGrid.placeAtIndex(5, this.titleText)
+
+        // ////////////////////////
+        // PLAYER 
+        this.player = this.physics.add.sprite(0, 0, 'kampoeng', 'char-1.png').setScale(.5);
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNames('kampoeng', {
+                start: 0, end: 2, zeroPad: 1, prefix: 'char-', suffix: '.png'
+            }),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.player.play('walk');
+        this.aGrid.placeAtIndex(122, this.player);
+
         this.btnStart = new TextButton({
             scene: this,
             key: "green",
             event: mt.constants.START_GAME,
             params: this.scene,
-            text: "Start Game",
-            scale: .35,
+            text: "Start!",
+            scale: .3,
             textScale: 30,
-            textColor: '#000000'
+            textColor: '#FFF'
         });
-        Align.center(this.btnStart);
-        //
+        this.aGrid.placeAtIndex(91, this.btnStart)
         //
         //
         this.btnInstr = new TextButton({
             scene: this,
-            key: "blue",
+            key: "orange",
             event: mt.constants.SHOW_INSTR,
             params: this.scene,
-            text: "How to Play",
-            scale: .35,
+            text: "How to Play?",
+            scale: .3,
             textScale: 30,
-            textColor: '#000000'
+            textColor: '#FFF'
         });
-        this.aGrid.placeAtIndex(35, this.btnInstr);
+        this.aGrid.placeAtIndex(115, this.btnInstr);
+
         this.btnSettings = new TextButton({
             scene: this,
-            key: "orange",
+            key: "blue",
             event: mt.constants.SHOW_SETTINGS,
             params: this.scene,
             text: "Settings",
-            scale: .35,
+            scale: .3,
             textScale: 30,
-            textColor: '#000000'
+            textColor: '#FFF'
         });
-        this.aGrid.placeAtIndex(85, this.btnSettings);
+        this.aGrid.placeAtIndex(139, this.btnSettings);
 
 
     }

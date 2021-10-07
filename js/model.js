@@ -6,17 +6,12 @@ class Model {
         //
         this._musicOn = true;
         this._sfxOn = true;
-        this.gameTitle="Game\nTitle\nHere";
-        this.instructionText="Instructions Here";
+        this.gameTitle="Karoeng\nRace";
+        this.gameOverTitle="Game Over";
+        this.instructionText="use CLICK or SPACE BAR\nto JUMP obstacles";
 
-        // background speed
-        this.bgSpeed = 3;
-        this.bounceHeight = 300;
-        this.charGravity = 1200;
-        this.charPower = 1200;
-        this.obstacleSpeed = 250;
-        this.obstacleDistanceRange = [100, 250];
-        this.localStorageName = 'bestballscore';
+        // score
+        this.scoreResult = 0;
     }
     set musicOn(val) {
         this._musicOn = val;

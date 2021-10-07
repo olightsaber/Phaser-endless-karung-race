@@ -22,7 +22,7 @@ window.onload = function() {
         scene: [SceneLoad, SceneTitle, SceneInstructions, SceneSettings, SceneMain, SceneOver],
         physics: {
             default: 'arcade',
-            arcade: { debug: false, collideWorldBounds: true }
+            arcade: { debug: true, collideWorldBounds: true }
         }
     };
     mt = {};

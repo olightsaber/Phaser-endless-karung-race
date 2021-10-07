@@ -12,10 +12,8 @@ class SceneMain extends Phaser.Scene {
         this.bg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'kampoeng', 'background.png').setOrigin(0,0).setScrollFactor(0);
         this.bg.tilePositionY = 500;
         this.bg.fixedToCamera = true;
-        this.bg.scale = this.bg.height / this.bg.frame.height;
-
-        // init music
-        mt.mediaManager.setBackground('bg_song');
+        
+        this.bg.scale = this.bg.frame.height / this.bg.frame.height;
         
         // score
         this.score = 0;
@@ -63,9 +61,7 @@ class SceneMain extends Phaser.Scene {
         this.player.body.maxVelocity.y = 450;
         this.player.setImmovable(false); // cus default true
         this.player.state = 'alive';
-        this.player.body.setSize(200, this.player.height, 0, 0)
-
-        // this.cameras.main.startFollow(this.player);
+        this.player.body.setSize(200, this.player.height, 0, 0);
 
         // obstacles
         this.obstacles = this.physics.add.group();
@@ -79,17 +75,12 @@ class SceneMain extends Phaser.Scene {
         this.timer.name = 'Time';
         this.time.start();
 
-
-        this.obs = new Obstacles();
         // create obstacles
-
+        this.obs = new Obstacles();
         this.createKucing();
         this.createBola();
         this.createBatu();
-
-        this.obstacles.children.iterate((child) => {
-          this.obs.setUp(child);
-        })
+          
     } 
     update(){
       var body = this.player.body;
@@ -115,29 +106,29 @@ class SceneMain extends Phaser.Scene {
         // count body x pos compare it with neko
         if (this.player.x < (this.neko.x - game.config.width/2)) {
           mt.mediaManager.playSound('over');
-          this.startOver();
           this.player.active = false;
+          // this.player.active = false;
         }
 
+        
         if (this.score < 10) {
           this.moveObstacle(this.kucing, 1)
         } else if(this.score > 9 && this.score < 19) {
           this.moveObstacle(this.bola, 2)
         } else {
-          this.moveObstacle(this.batu, 3)
+          this.moveObstacle(this.batu, 3  )
         }
 
+        this.bg.tilePositionX = this.cameras.main.scrollX / 2;
+        this.updateBounds(); // update bounds world from center neko
       } else {
-        console.log('You Are Dead!')
+        // console.log('You Are Dead!')
+        this.doGameOver();
       }
+    }
 
-      // this.obstacles.forEachAlive(this.updateObstacle, this);
-      
-      // this.bg.tilePositionX = this.camera.view.x / -2;
-      this.bg.tilePositionX = this.cameras.main.scrollX / 2;
-      this.updateBounds(); // update bounds world from center neko
-
-      // this.moveObstacle(this.createObstacles() + '[' + Phaser.Math.Between(0, 2) + ']');
+    doGameOver() {
+      this.scene.start("SceneOver");
     }
 
     createKucing()
@@ -145,30 +136,34 @@ class SceneMain extends Phaser.Scene {
       this.kucing = this.add.sprite(game.config.width, game.config.height, 'kampoeng', 'kucing');
       this.obstacles.add(this.kucing);
       this.kucing.body.setSize(100, 100, 50, 50);
+      this.kucing.name = 'kucing';
+      this.obs.setUp(this.kucing)
     }
 
     createBola()
     {
-        this.bola = this.add.sprite(game.config.width, game.config.height, 'kampoeng', 'bola');
-        this.obstacles.add(this.bola);
-        this.bola.body.setSize(50, 100, 55, 10); 
-        this.bola.name = 'bola';
+      this.bola = this.add.sprite(game.config.width, game.config.height, 'kampoeng', 'bola');
+      this.obstacles.add(this.bola);
+      this.bola.body.setSize(50, 100, 55, 10);
+      this.bola.setScale(.3);  
+      this.bola.name = 'bola';
     }
 
     createBatu()
     {
       this.batu = this.add.sprite(game.config.width, game.config.height, 'kampoeng', 'batu');
-      this.obstacles.add(this.batu);
+      this.obstacles.add(this. batu);
+      this.batu.setScale(.3);
       this.batu.body.setSize(50, 100, 55, 10);
-    }
-
-    destroySprite (sprite) {
-      sprite.destroy();
+      this.batu.name = 'batu';
+      this.batu.body.immovable = true;
+      this.batu.body.moves = false;
     }
 
     updateText()
     {
       this.score++;
+      mt.model.scoreResult = this.score;
       this.scoreText.setText(this.score);
     }
 
@@ -184,7 +179,6 @@ class SceneMain extends Phaser.Scene {
       obs.x = (this.neko.x + game.config.width/2);
       let randomY = Phaser.Math.Between(this.neko.y + this.neko.y/1.2, this.neko.y + this.neko.y/1.5);
       obs.y = randomY;
-      console.log(obs.name == 'bola')
       if (obs.name == 'bola') {
         obs.body.collideWorldBounds = true;
         obs.body.allowGravity = true;
@@ -196,7 +190,7 @@ class SceneMain extends Phaser.Scene {
         this.tweens.add({
           targets: obs,
           duration: 5000,
-          angle : -360
+          angle : -720
         });
       }
     }
@@ -209,10 +203,11 @@ class SceneMain extends Phaser.Scene {
     }
 
     startOver () {
-      this.timer.paused = true;
-      this.cameras.main.fadeOut(2000);
+      // this.timer.paused = true;
+      this.cameras.main.fadeOut(3000);
       this.addEvent(2000, this.restart, 'restart');
       this.player.state = 'alive';
+      // this.scene.start("SceneOver");
     }
 
     restart(){
