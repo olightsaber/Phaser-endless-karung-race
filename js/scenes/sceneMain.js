@@ -90,8 +90,6 @@ class SceneMain extends Phaser.Scene {
         this.obstacles.children.iterate((child) => {
           this.obs.setUp(child);
         })
-
-        // var rndSprite = this.obstacles.getRandomExists();
     } 
     update(){
       var body = this.player.body;
@@ -121,10 +119,6 @@ class SceneMain extends Phaser.Scene {
           this.player.active = false;
         }
 
-        // let arr = [this.kucing, this.bola, this.batu];
-        // arr.map((e) => {
-        //   this.moveObstacle(e, Phaser.Math.Between(1, 3))
-        // })
         if (this.score < 10) {
           this.moveObstacle(this.kucing, 1)
         } else if(this.score > 9 && this.score < 19) {
@@ -158,15 +152,14 @@ class SceneMain extends Phaser.Scene {
         this.bola = this.add.sprite(game.config.width, game.config.height, 'kampoeng', 'bola');
         this.obstacles.add(this.bola);
         this.bola.body.setSize(50, 100, 55, 10); 
+        this.bola.name = 'bola';
     }
 
     createBatu()
     {
       this.batu = this.add.sprite(game.config.width, game.config.height, 'kampoeng', 'batu');
       this.obstacles.add(this.batu);
-      this.batu.body.setSize(50, 100, 55, 10); 
-
-      console.log(this.obstacles.GetRandom)
+      this.batu.body.setSize(50, 100, 55, 10);
     }
 
     destroySprite (sprite) {
@@ -191,7 +184,21 @@ class SceneMain extends Phaser.Scene {
       obs.x = (this.neko.x + game.config.width/2);
       let randomY = Phaser.Math.Between(this.neko.y + this.neko.y/1.2, this.neko.y + this.neko.y/1.5);
       obs.y = randomY;
-      
+      console.log(obs.name == 'bola')
+      if (obs.name == 'bola') {
+        obs.body.collideWorldBounds = true;
+        obs.body.allowGravity = true;
+        obs.body.setBounce(.5); 
+        obs.body.setGravity(0, 1000);
+        obs.body.moves = true;
+        obs.body.immovable = true;
+        obs.y = this.neko.y;
+        this.tweens.add({
+          targets: obs,
+          duration: 5000,
+          angle : -360
+        });
+      }
     }
 
     // Helpers
@@ -200,29 +207,6 @@ class SceneMain extends Phaser.Scene {
       event.name = name;
       return event;
     }
-
-    // createObstacles () {
-      // this.kucing = this.add.sprite(game.config.width, game.config.height/2, 'kampoeng', 'kucing');
-    //   let bola = this.add.sprite(game.config.width, game.config.height/2, 'kampoeng', 'bola');
-    //   let batu = this.add.sprite(game.config.width, game.config.height/2, 'kampoeng', 'batu');
-      // this.obstacles.add(this.kucing);
-    //   this.obstacles.add(bola);
-    //   this.obstacles.add(batu);
-
-      // this.obstacles.children.iterate((child) => {
-      //   child.body.allowGravity = false;
-      //   child.body.immovable = true;
-      //   child.body.moves = false;
-      //   child.x = game.config.width ;
-      //   child.y = game.config.height/2;
-      //   child.setScale(.3);
-      //   child.setOrigin(.5);
-      //   child.active = true; 
-
-      //   this.moveObstacle(child, 1);
-      // }) 
-      // return this.obstacles.children.entries;
-    // }
 
     startOver () {
       this.timer.paused = true;
@@ -240,154 +224,3 @@ class SceneMain extends Phaser.Scene {
       this.physics.world.setBounds(this.neko.x - bounds.centerX, bounds.y, bounds.right, bounds.height);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // create() {
-    //     this.obstacleGroup = this.physics.add.group();
-
-    // Set background
-    //     this.bg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'kampoeng', 'background.png').setOrigin(0,0);
-    //     this.bg.tilePositionY = 400;
-
-    // set bottom platform;
-    //     this.platforms = this.physics.add.staticGroup();
-    // this.platforms.create(0, game.config.height, 'sample').setScale(3, .3).refreshBody().setVisible(true);
-    //     this.ground = this.add.tileSprite(0, game.config.height, game.config.width, game.config.height, "grass").setOrigin(0, .1).setVisible(true);
-    //     this.platforms.add(this.ground);
-
-        // set up Character;
-    //     this.char = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'kampoeng', 'char-1.png').setScale(.35).setOrigin(.5,.5);
-    //     this.anims.create({
-    //         key: 'walk',
-    //         frames: this.anims.generateFrameNames('kampoeng', {
-    //             start: 0, end: 2, zeroPad: 1, prefix: 'char-', suffix: '.png'
-    //         }),
-    //         frameRate: 5,
-    //         repeat: -1
-    //     });
-    //     this.char.play('walk');
-
-    //     this.anims.create({
-    //         key: "jump",
-    //         frames: this.anims.generateFrameNames("kampoeng", { 
-    //             start: 1, end: 1, zeroPad: 1, prefix: 'char-', suffix: '.png'
-    //         }),
-    //         frameRate: 7,
-    //         repeat: 1
-    //     });
-        
-    //    set bound to char;
-    //     this.char.setCollideWorldBounds(false);
-
-    //     pointer down;
-    //     this.input.on('pointerdown', this.charJump, this);
-    //     this.char.setBounce(.3);
-    //     this.character = this.add.group();
-    //     this.character.add(this.char);
-
-    //     platforms collide settings
-    //     this.physics.add.collider(this.char, this.platforms);
-    //     this.obstacles = this.add.group();
-
-        // let obstacleX = game.config.width;
-        // for(let i = 0; i < 10; i++){
-            // let obstacle = this.obstacleGroup.create(obstacleX, this.ground.getBounds().top, 'obstacle');
-            // obstacle.setOrigin(0.5, 1);
-            // obstacle.setImmovable(true);
-            // obstacleX += Phaser.Math.Between(mt.model.obstacleDistanceRange[0], mt.model.obstacleDistanceRange[1])
-        // }
-
-    //     this.createKucing();
-
-    //     this.time.addEvent({ 
-    //         delay: 5000, callback: this.createKucing, callbackScope: this, loop: true 
-    //     });
-    // }
-    // createKucing()
-	// {
-    //     let kucing = this.physics.add.image(game.config.width + 20, game.config.height/1.2, 'kampoeng', 'kucing.png').setScale(.5);
-    //     this.obstacleGroup.add(kucing);
-    //     this.physics.add.collider(kucing, this.platforms);
-    //     this.physics.add.collider(kucing, this.character);
-      // let bola = this.physics.add.image(game.config.width, game.config.height/1.5, 'kampoeng', 'bola.png');
-      // let batu = this.physics.add.image(game.config.width, game.config.height/1.5, 'kampoeng', 'batu.png');
-      // let arr = [kucing, bola, batu];
-      // arr.map((e) => { this.obstacles.add(e) });
-    //     kucing.setVelocityX(-50);
-	// }
-    // char jump
-    // charJump()
-    // {
-    //     this.char.setVelocityY(-200);
-    // }
-    // update() {
-        // set background moving
-	// 	this.bg.tilePositionX += mt.model.bgSpeed;
-    //     this.ground.tilePositionX += mt.model.bgSpeed;
-        
-        // if (this.char.x < -100) {
-        //     this.scene.restart()
-        // }
-        // this.obstacles.children.iterate((child)=> {
-        //   console.log(child)
-        // })
-        // var cursors = this.input.keyboard.createCursorKeys();
-		// if (cursors.left.isDown)
-		// {
-		// 	this.char.setVelocityX(-160);
-		// 	this.char.anims.play('walk', true);
-		// }
-		// else if (cursors.right.isDown)
-		// {
-		// 	this.char.setVelocityX(160);
-		// 	this.char.anims.play('walk', true);
-		// }
-		// else
-		// {
-		// 	this.char.setVelocityX(0);
-		// 	this.char.anims.play('walk', true);
-		// }
-
-		// if (cursors.up.isDown && this.char.body.touching.down)
-		// {
-		// 	this.char.setVelocityY(-350);
-		// }
-    // }
-// }
