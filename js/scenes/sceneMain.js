@@ -125,12 +125,12 @@ class SceneMain extends Phaser.Scene {
         }
 
         
-        if (this.score % 2 == 0) {
+        if (this.score < 10) {
           this.moveObstacle(this.kucing, 1)
-        } else if(this.score % 2 == 1) {
+        } else if(this.score > 9 && this.score < 19) {
           this.moveObstacle(this.bola, 2)
         } else {
-          this.moveObstacle(this.batu, 3)
+          this.moveObstacle(this.batu, 3  )
         }
 
         this.bg.tilePositionX = this.cameras.main.scrollX / 2;
@@ -217,9 +217,11 @@ class SceneMain extends Phaser.Scene {
     }
 
     startOver () {
+      // this.timer.paused = true;
       this.cameras.main.fadeOut(3000);
       this.addEvent(2000, this.restart, 'restart');
       this.player.state = 'alive';
+      // this.scene.start("SceneOver");
     }
 
     restart(){
