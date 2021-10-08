@@ -6,9 +6,6 @@ class SceneTitle extends Phaser.Scene {
         
     }
     create() {
-        // init music
-        mt.mediaManager.setBackground('bg_song');
-        
         // background
         this.bg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'kampoeng', 'background.png').setOrigin(0,0);
         this.bg.tilePositionX = 120;
@@ -86,4 +83,10 @@ class SceneTitle extends Phaser.Scene {
 
 
     }
+
+    // update() {
+    //     if (!mt.model._musicOn) {
+    //         mt.mediaManager.stopMusic();
+    //     }
+    // }
 }

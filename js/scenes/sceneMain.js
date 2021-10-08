@@ -5,6 +5,10 @@ class SceneMain extends Phaser.Scene {
     preload(){}
 
     create(){
+        // init music
+        mt.mediaManager.setBackground('bg_song');
+
+        // set camera and world bounds
         this.cameras.main.roundPixels = true;
         this.physics.world.setBounds(0, 0, game.config.width, game.config.height/2);
 
