@@ -23,7 +23,8 @@ class SceneLoad extends Phaser.Scene {
         //
         this.load.image("grass", "images/assets/grass.png");
         this.load.spritesheet('obstacle', 'images/assets/obstacle.png', { frameWidth: 100, frameHeight: 100 })
-        this.load.multiatlas('kampoeng', 'images/assets/kampoeng.json', 'images/assets/');        
+        this.load.multiatlas('kampoeng', 'images/assets/kampoeng.json', 'images/assets/');
+        this.load.image("jump_btn", "images/buttons/jump_button.png");
 
         /* this.load.audio("right", "audio/right.wav");*/
         this.load.audio("over", "audio/catch.wav");
@@ -37,7 +38,7 @@ class SceneLoad extends Phaser.Scene {
         mt.mediaManager = new MediaManager({
             scene: this
         });
-        this.scene.start("SceneMain");
+        this.scene.start("SceneTitle");
     }
     showProgress(prog) {
         var per = Math.floor((prog / 1) * 100);

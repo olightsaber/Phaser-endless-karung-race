@@ -68,13 +68,11 @@ class SceneMain extends Phaser.Scene {
         this.obstacles = this.physics.add.group();
 
         // input
+        this.jump_btn = this.add.sprite(game.config.width/2, game.config.height/1.1, "jump_btn").setScrollFactor(0).setOrigin(.5, .5).setScale(.3).setInteractive();
+        this.jump_btn.on('pointerdown', this.jumpClicked, this, null)
+        
         this.cursors = this.input.keyboard.createCursorKeys();
         this.jumpButton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-        // timer
-        this.timer = this.time.addEvent();
-        this.timer.name = 'Time';
-        this.time.start();
 
         // create obstacles
         this.obs = new Obstacles();
@@ -84,7 +82,7 @@ class SceneMain extends Phaser.Scene {
           
     } 
     update(){
-      var body = this.player.body;
+      let body = this.player.body;
       if (this.player.active == true) {
         this.physics.add.collider(this.player, this.obstacles);
         if (!body.touching.right) {
@@ -106,7 +104,7 @@ class SceneMain extends Phaser.Scene {
             pace = 25;
           }
           this.player.anims.msPerFrame = pace;
-          if (this.jumpButton.isDown || this.input.activePointer.isDown) {
+          if (this.jumpButton.isDown) {
             mt.mediaManager.playSound('jump');
             body.velocity.y = -body.maxVelocity.y;
             //  Every single animation in the Animation Manager will be paused:
@@ -124,7 +122,6 @@ class SceneMain extends Phaser.Scene {
           this.player.active = false;
         }
 
-        
         if (this.score < 10) {
           this.moveObstacle(this.kucing, 1)
         } else if(this.score > 9 && this.score < 19) {
@@ -141,17 +138,29 @@ class SceneMain extends Phaser.Scene {
       }
     }
 
+    jumpClicked() 
+    {
+      let body = this.player.body;
+      if(body.blocked.down || body.touching.down) {
+        mt.mediaManager.playSound('jump');
+        body.velocity.y = -body.maxVelocity.y;
+        this.player.anims.isPaused ? this.player.anims.resume() : this.player.anims.pause()
+      }
+    }
+
     doGameOver() {
       this.scene.start("SceneOver");
     }
 
     createKucing()
     {
+      
       this.kucing = this.add.sprite(game.config.width, game.config.height, 'kampoeng', 'kucing');
       this.obstacles.add(this.kucing);
       this.kucing.body.setSize(100, 100, 50, 50);
       this.kucing.name = 'kucing';
-      this.obs.setUp(this.kucing)
+      this.obs.setUp(this.kucing);
+      // this.moveObstacle(this.kucing, Phaser.Math.Between(1, 3))
     }
 
     createBola()
@@ -161,6 +170,7 @@ class SceneMain extends Phaser.Scene {
       this.bola.body.setSize(50, 100, 55, 10);
       this.bola.setScale(.4);
       this.bola.name = 'bola';
+      // this.moveObstacle(this.bola, Phaser.Math.Between(1, 3))
     }
 
     createBatu()
@@ -172,6 +182,7 @@ class SceneMain extends Phaser.Scene {
       this.batu.name = 'batu';
       this.batu.body.immovable = true;
       this.batu.body.moves = false;
+      // this.moveObstacle(this.batu, Phaser.Math.Between(1, 3))
     }
 
     updateText()
